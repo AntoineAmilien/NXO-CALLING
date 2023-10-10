@@ -1,5 +1,9 @@
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import LiveStatusGlobal from "@/components/domain/liveStatus/LiveStatusGlobal";
+import IncidentGlobal from "@/components/domain/incident/IncidentGlobal";
+import MaintenanceGlobal from "@/components/domain/maintenance/MaintenanceGlobal";
 
 const ALL_SERVICES_NXO_CALLING = {
   Teams: {
@@ -45,10 +49,24 @@ export default function Home({ services }) {
         />
         <p className="text-2xl font-semi-bold">NXO Calling Status Page</p>
       </div>
-
       <Separator className="my-4" />
 
-      {services}
+      <Tabs defaultValue="liveStatus">
+        <TabsList className="mb-4">
+          <TabsTrigger value="liveStatus">Live status</TabsTrigger>
+          <TabsTrigger value="incident">Incident</TabsTrigger>
+          <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
+        </TabsList>
+        <TabsContent value="liveStatus">
+          <LiveStatusGlobal services={services} />
+        </TabsContent>
+        <TabsContent value="incident">
+          <IncidentGlobal />
+        </TabsContent>
+        <TabsContent value="maintenance">
+          <MaintenanceGlobal />
+        </TabsContent>
+      </Tabs>
     </>
   );
 }
