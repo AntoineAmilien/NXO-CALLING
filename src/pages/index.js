@@ -1,37 +1,54 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Separator } from "@/components/ui/separator";
 
-const inter = Inter({ subsets: ["latin"] });
+const ALL_SERVICES_NXO_CALLING = {
+  Teams: {
+    serviceName: "Teams",
+    offerName: "TEAMS-CALLING",
+  },
+  Foo: {
+    serviceName: "Foo",
+    offerName: "FOO-CALLING",
+  },
+  Bar: {
+    serviceName: "Bar",
+    offerName: "BAR-CALLING",
+  },
+};
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+export async function getServerSideProps(context) {
+  var services = [];
 
-export default function Home() {
+  if (context.query.Services) {
+    let servicesQuery = context.query.Services.split(",");
+    servicesQuery.map((service) => {
+      if (ALL_SERVICES_NXO_CALLING[service]) {
+        services = [...services, service];
+      }
+    });
+  } else {
+    services = Object.keys(ALL_SERVICES_NXO_CALLING);
+  }
+
+  return { props: { services } };
+}
+
+export default function Home({ services }) {
   return (
-    <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It adheres to the WAI-ARIA design pattern.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2">
-        <AccordionTrigger>Is it styled?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It comes with default styles that matches the other
-          components&apos; aesthetic.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-3">
-        <AccordionTrigger>Is it animated?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It's animated by default, but you can disable it if you prefer.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+    <>
+      <div className="space-y-4 flex justify-between items-end">
+        <Image
+          src="/nxo-logo-214x80.png"
+          width={214}
+          height={80}
+          alt="Picture of the author"
+        />
+        <p className="text-2xl font-semi-bold">NXO Calling Status Page</p>
+      </div>
+
+      <Separator className="my-4" />
+
+      {services}
+    </>
   );
 }
