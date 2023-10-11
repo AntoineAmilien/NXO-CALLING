@@ -38,24 +38,24 @@ export default function Home({ services }) {
       </div>
       <Separator className="my-4" />
 
-      {JSON.stringify(services)}
-
-      <Tabs defaultValue="liveStatus">
-        <TabsList className="mb-4">
-          <TabsTrigger value="liveStatus">Live status</TabsTrigger>
-          <TabsTrigger value="incident">Incident</TabsTrigger>
-          <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
-        </TabsList>
-        <TabsContent value="liveStatus">
-          <LiveStatusGlobal services={services} />
-        </TabsContent>
-        <TabsContent value="incident">
-          <IncidentGlobal />
-        </TabsContent>
-        <TabsContent value="maintenance">
-          <MaintenanceGlobal />
-        </TabsContent>
-      </Tabs>
+      <div className="p-4">
+        <Tabs defaultValue="liveStatus">
+          <TabsList className="mb-4">
+            <TabsTrigger value="liveStatus">Live status</TabsTrigger>
+            <TabsTrigger value="incident">Incident</TabsTrigger>
+            <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
+          </TabsList>
+          <TabsContent value="liveStatus">
+            <LiveStatusGlobal services={services} />
+          </TabsContent>
+          <TabsContent value="incident">
+            <IncidentGlobal />
+          </TabsContent>
+          <TabsContent value="maintenance">
+            <MaintenanceGlobal />
+          </TabsContent>
+        </Tabs>
+      </div>
     </>
   );
 }
