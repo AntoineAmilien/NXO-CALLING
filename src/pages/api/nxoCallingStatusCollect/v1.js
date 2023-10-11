@@ -32,7 +32,9 @@ export default async function handler(req, res) {
         ),
         lastThreeHundredAndSixtyFiveDays:
           await getNumberOfServiceIsIndispoForLast365Days(SERVICE.offerName),
-        lastMonth: getNumberOfServiceIsIndispoForLastMonth(SERVICE.offerName),
+        lastMonth: await getNumberOfServiceIsIndispoForLastMonth(
+          SERVICE.offerName
+        ),
       },
       graph: await getDispoBar(SERVICE.offerName),
     };
