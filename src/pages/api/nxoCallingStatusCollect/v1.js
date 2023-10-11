@@ -25,14 +25,14 @@ export default async function handler(req, res) {
     var statusForThisService = {
       indispo: {
         lastTwentyFourHours: getNumberOfServiceIsIndispoForLast24Hours(
-          SERVICE.serviceName
+          SERVICE.offerName
         ),
         lastThirtyDays: getNumberOfServiceIsIndispoForLast30Days(
-          SERVICE.serviceName
+          SERVICE.offerName
         ),
         lastThreeHundredAndSixtyFiveDays:
-          getNumberOfServiceIsIndispoForLast365Days(SERVICE.serviceName),
-        lastMonth: getNumberOfServiceIsIndispoForLastMonth(SERVICE.serviceName),
+          getNumberOfServiceIsIndispoForLast365Days(SERVICE.offerName),
+        lastMonth: getNumberOfServiceIsIndispoForLastMonth(SERVICE.offerName),
       },
     };
 
