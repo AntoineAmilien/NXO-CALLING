@@ -5,35 +5,20 @@ import LiveStatusGlobal from "@/components/domain/liveStatus/LiveStatusGlobal";
 import IncidentGlobal from "@/components/domain/incident/IncidentGlobal";
 import MaintenanceGlobal from "@/components/domain/maintenance/MaintenanceGlobal";
 
-const ALL_SERVICES_NXO_CALLING = [
-  {
-    serviceName: "Teams",
-    offerName: "TEAMS-CALLING",
-  },
-  {
-    serviceName: "Foo",
-    offerName: "FOO-CALLING",
-  },
-  {
-    serviceName: "Bar",
-    offerName: "BAR-CALLING",
-  },
-];
-
 export async function getServerSideProps(context) {
   var services = [];
 
   if (context.query.Services) {
     let servicesQuery = context.query.Services.split(",");
     servicesQuery.map((serviceQuery) => {
-      for (const elService of ALL_SERVICES_NXO_CALLING) {
+      for (const elService of process.env.ALL_SERVICES_NXO_CALLING) {
         if (elService.serviceName === serviceQuery) {
           services = [...services, elService];
         }
       }
     });
   } else {
-    services = ALL_SERVICES_NXO_CALLING;
+    services = process.env.ALL_SERVICES_NXO_CALLING;
   }
 
   return { props: { services } };
