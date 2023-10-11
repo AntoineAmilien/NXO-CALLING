@@ -5,33 +5,35 @@ import LiveStatusGlobal from "@/components/domain/liveStatus/LiveStatusGlobal";
 import IncidentGlobal from "@/components/domain/incident/IncidentGlobal";
 import MaintenanceGlobal from "@/components/domain/maintenance/MaintenanceGlobal";
 
-const ALL_SERVICES_NXO_CALLING = {
-  Teams: {
+const ALL_SERVICES_NXO_CALLING = [
+  {
     serviceName: "Teams",
     offerName: "TEAMS-CALLING",
   },
-  Foo: {
+  {
     serviceName: "Foo",
     offerName: "FOO-CALLING",
   },
-  Bar: {
+  {
     serviceName: "Bar",
     offerName: "BAR-CALLING",
   },
-};
+];
 
 export async function getServerSideProps(context) {
   var services = [];
 
   if (context.query.Services) {
     let servicesQuery = context.query.Services.split(",");
-    servicesQuery.map((service) => {
-      if (ALL_SERVICES_NXO_CALLING[service]) {
-        services = [...services, service];
+    servicesQuery.map((serviceQuery) => {
+      for (const elService of ALL_SERVICES_NXO_CALLING) {
+        if (elService.serviceName === serviceQuery) {
+          services = [...services, elService];
+        }
       }
     });
   } else {
-    services = Object.keys(ALL_SERVICES_NXO_CALLING);
+    services = ALL_SERVICES_NXO_CALLING;
   }
 
   return { props: { services } };
@@ -50,6 +52,8 @@ export default function Home({ services }) {
         <p className="text-2xl font-semi-bold">NXO Calling Status Page</p>
       </div>
       <Separator className="my-4" />
+
+      {JSON.stringify(services)}
 
       <Tabs defaultValue="liveStatus">
         <TabsList className="mb-4">
